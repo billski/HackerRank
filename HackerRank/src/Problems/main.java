@@ -6,10 +6,21 @@ public class main {
 
 	public static void main(String[] args) {
 		
-		Problem2();
+		Problem3();
 
 	}
 	
+	static void Problem3() {
+		Scanner scan = new Scanner(System.in);
+		int i = scan.nextInt();
+		Double d = scan.nextDouble();
+		scan.nextLine();
+		String s = scan.nextLine();
+		
+		System.out.println("String: " + s);
+		System.out.println("Double: " + d);
+		System.out.println("Int: " + i);
+	}
 	
 	static void Problem2() {
 		
@@ -21,6 +32,7 @@ public class main {
 			If n is even and in the inclusive range of  to , print Weird
 			If n is even and greater than , print Not Weird
 		*/
+		
 		Scanner scanner = new Scanner(System.in);
 		int num = scanner.nextInt();
 		
@@ -32,20 +44,14 @@ public class main {
 					System.out.println("Weird");
 				}else if(num > 20) {
 					System.out.println("Not Weird");
-				}
-				
+				}	
 			} else {
 				System.out.println("Weird");
-			}
-			
+			}	
 		}else {
 			System.out.println("Invalid number.");
 			
 		}
-		
-		
-		
-		
 	}
 	
 	
