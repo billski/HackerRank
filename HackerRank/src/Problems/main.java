@@ -6,8 +6,26 @@ public class main {
 
 	public static void main(String[] args) {
 		
-		Problem3();
+		Problem4();
 
+	}
+    
+	
+	static void Problem4() {
+		 Scanner sc = new Scanner(System.in);
+         System.out.println("================================");
+         for(int i = 0; i < 3; i++){
+             String s1 = sc.next();
+             int x = sc.nextInt();
+             System.out.println(s1 + String.format("%1$" + (18 - s1.length()) + "s", 
+            		 				String.format("%1$" + 3 + "s", x).replace(' ', '0')));
+             
+             
+         }
+         
+         System.out.println("================================");
+         
+         sc.close();
 	}
 	
 	static void Problem3() {
@@ -20,6 +38,7 @@ public class main {
 		System.out.println("String: " + s);
 		System.out.println("Double: " + d);
 		System.out.println("Int: " + i);
+		scan.close();
 	}
 	
 	static void Problem2() {
@@ -52,25 +71,27 @@ public class main {
 			System.out.println("Invalid number.");
 			
 		}
+		scanner.close();
 	}
-	
-	
+		
 	static void Problem1() {
 		Scanner scanner = new Scanner(System.in);
 		Integer ints[] = new Integer[3];  
 		
 		for(int i = 0, j = 0; i < ints.length || j < ints.length;) {
 		
-			
 			if(i < ints.length) {
 				ints[i] = scanner.nextInt();
 				i++;
-			} 
+			}
+			
 			if(i == ints.length) {
 				System.out.println(ints[j]);
 				j++;				
 			}
 		}
+		
+		scanner.close();
 	}
 
 }
