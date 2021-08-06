@@ -9,18 +9,26 @@ public class main {
 
 	public static void main(String[] args) {
 		
-		try {
-			Problem5();
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		Problem6();
 	}
     
+	
+	static void Problem6() {
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		for(int i = 0; i < t; i++){
+		    int a = in.nextInt();
+		    int b = in.nextInt();
+		    int n = in.nextInt();
+		    int s = a;
+            for(int j = 0; j < n; j++) {
+                s += Math.pow(2, j) * b;
+                System.out.printf("%s " , s);
+            }
+            System.out.println();
+		}
+		in.close();
+	}
 	
 	static void Problem5() throws NumberFormatException, IOException {
 		
