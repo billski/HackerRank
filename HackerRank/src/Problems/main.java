@@ -9,9 +9,20 @@ public class main {
 
 	public static void main(String[] args) {
 		
-		Problem7();
+		Problem8();
 	}
     
+	static void Problem8() {
+		Scanner scan = new Scanner(System.in);
+        int ctr = 1;
+		while (scan.hasNext()) {
+            String line = scan.nextLine();
+            System.out.println(ctr + " " + line);
+            ctr++;
+        }
+		scan.close();
+	}
+	
 	static void Problem7() {
 	
 		Scanner sc = new Scanner(System.in);
@@ -38,6 +49,8 @@ public class main {
 			} catch(Exception e) {
 				System.out.println(sc.next() + " can't be fitted anywhere.");
 			}
+			
+			sc.close();
 		}
 				
 	}
