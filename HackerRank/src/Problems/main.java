@@ -7,11 +7,36 @@ import java.util.Scanner;
 
 public class main {
 
+	static int H, B;
+	static boolean flag;
+	static {
+	    Scanner scan = new Scanner(System.in);
+		
+	    H = scan.nextInt();
+		scan.nextLine();
+		
+		B = scan.nextInt();
+		scan.nextLine();
+	    
+		if(H <= 0 || B <= 0) {
+	    	flag = false;
+	    	System.out.println("java.lang.Exception: Breadth and height must be positive");
+	    }else {
+	    	flag = true;	
+	    }
+		scan.close();
+	    
+	}
+	
 	public static void main(String[] args) {
 		
-		Problem8();
+		
 	}
     
+	static void Problem9() {
+		
+	}
+	
 	static void Problem8() {
 		Scanner scan = new Scanner(System.in);
         int ctr = 1;
