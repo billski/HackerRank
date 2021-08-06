@@ -1,15 +1,46 @@
 package Problems;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class main {
 
 	public static void main(String[] args) {
 		
-		Problem4();
-
+		try {
+			Problem5();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
     
+	
+	static void Problem5() throws NumberFormatException, IOException {
+		
+		// Given an integer, n, print its first 10 multiples. 
+		// Each multiple n x i (where 1 <= i <= 10) should be printed on a new line in the
+		
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        if(n >= 2 && n <= 20) {
+        	for (int i = 1; i < 11; i++) {
+        		System.out.println(String.valueOf(n) + " x " + String.valueOf(i) + " = " + i * n);
+        	}
+        }
+        
+        
+        bufferedReader.close();
+		
+	}
 	
 	static void Problem4() {
 		 Scanner sc = new Scanner(System.in);
