@@ -1,12 +1,128 @@
 package Problems;
 
 import java.io.BufferedReader;
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class main {
 
+	public static void main(String[] args) {
+		
+		Problem17("welcometojava", 3);
+	}
+	
+	static void Problem17(String s, int k) {
+        String smallest = s.substring(0, k);
+        String largest = s.substring(0, k);
+        
+        // Complete the function
+        // 'smallest' must be the lexicographically smallest substring of length 'k'
+        // 'largest' must be the lexicographically largest substring of length 'k'
+        
+        for(int i = 0; i < s.length() - k + 1; i++) {
+        	String compare = s.substring(i, i + k);
+    		if(compare.compareTo(smallest) < 0) smallest = compare;
+    		if(compare.compareTo(largest) > 0) largest = s.substring(i, i + k);
+        }
+      
+        System.out.println(smallest + "\n" + largest);
+	}
+	
+	static void Problem16() {
+		Scanner in = new Scanner(System.in);
+        String s = in.next();
+        int start = in.nextInt();
+        int end = in.nextInt();
+        in.close();
+        System.out.println(s.substring(start, end));
+	}
+	
+	static void Problem15() {
+		Scanner scan = new Scanner(System.in);
+		
+		String line1 = scan.next();
+		String line2 = scan.next();
+		
+		line1 = line1.substring(0, 1).toUpperCase() + line1.substring(1);
+		line2 = line2.substring(0, 1).toUpperCase() + line2.substring(1);
+		
+		System.out.println(line1.length() + line2.length() + "\n"
+							+ (line1.compareTo(line2) > 0 ? "Yes" : "No") + "\n"
+							+ line1 + " " + line2);
+		scan.close();
+	}
+	
+	static void Problem14() {
+		Scanner in = new Scanner(System.in);
+		int testCases = Integer.parseInt(in.nextLine());
+		while(testCases > 0){
+			String pattern = in.nextLine();
+          	try {
+                Pattern.compile(pattern);
+                System.out.println("Valid");
+            } catch (PatternSyntaxException e) {
+                System.out.println("Invalid");
+            }
+            testCases--;
+		}
+		in.close();
+	}
+	
+	static void Problem13() {
+		Scanner scanner = new Scanner(System.in);
+        double payment = scanner.nextDouble();
+        scanner.close();
+        
+        if(payment <= 0 || payment >= Math.pow(10, 9)) {
+        	return;
+        }
+
+		Locale indiaLocale = new Locale("en", "IN");
+		
+		NumberFormat us = NumberFormat.getCurrencyInstance(Locale.US);
+		NumberFormat india = NumberFormat.getCurrencyInstance(indiaLocale);
+		NumberFormat china = NumberFormat.getCurrencyInstance(Locale.CHINA);
+		NumberFormat france = NumberFormat.getCurrencyInstance(Locale.FRANCE);
+		        
+		System.out.println("US: "     + us.format(payment));
+		System.out.println("India: "  + india.format(payment));
+		System.out.println("China: "  + china.format(payment));
+		System.out.println("France: " + france.format(payment));
+
+	}
+	
+	static String Problem12(int year, int month, int day) {
+		Date date = new GregorianCalendar(year, month-1, day).getTime();
+		DateFormat df = new SimpleDateFormat("EEEE");
+		String dayOfWeek = df.format(date);
+		return dayOfWeek.toUpperCase();
+	}
+	
+	static void Problem11() {
+		Scanner scan = new Scanner(System.in);
+		int n = scan.nextInt();
+		scan.close();		
+		System.out.println(String.valueOf(n));
+		
+	}
+
+	/**
+	 * Problem 10: Static blocks
+	 */
+	/*
 	static int H, B;
 	static boolean flag;
 	static {
@@ -27,12 +143,8 @@ public class main {
 		scan.close();
 	    
 	}
+	*/
 	
-	public static void main(String[] args) {
-		
-		
-	}
-    
 	static void Problem9() {
 		
 	}
