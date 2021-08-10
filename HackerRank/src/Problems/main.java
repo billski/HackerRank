@@ -2,18 +2,17 @@ package Problems;
 
 import java.io.BufferedReader;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Scanner;
+
+import java.util.*;
+
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -21,7 +20,74 @@ public class main {
 
 	public static void main(String[] args) {
 		
-		Problem17("welcometojava", 3);
+		
+	}
+	
+	static void Problem20(String str) {
+		if (str.trim().length() == 0 || str.trim().length() > 400000) {
+			System.out.println(0);
+			return;
+		}
+		str = str.trim(); 
+		String[] strSplit = str.split("[!,?._'@\\s]+");
+		System.out.println(strSplit.length);
+		for(int i = 0; i < strSplit.length; i++) {
+			System.out.println(strSplit[i].trim());
+		}
+		
+		
+		
+	}
+	
+	static void Problem19(String a, String b) {
+		
+		boolean isAnagram = false; 
+		
+		if(a.length() != b.length()) {
+			isAnagram = false;
+			return;	
+		}
+		
+		String tempA = "";
+		tempA = a;
+		
+		for(int i = 0; i < a.length(); i++) {
+			String toCheck = String.valueOf(a.charAt(i)).toLowerCase();
+			if(b.toLowerCase().contains(toCheck)) {
+				
+				b = b.replaceFirst(toCheck, "");
+				tempA = a.replaceFirst(toCheck, "");
+				
+			}else {
+				isAnagram = false;
+				break;
+			}
+			isAnagram = true;
+		}
+		System.out.println(isAnagram);
+	}
+	
+	static void Problem18(String str) {
+		
+		int len = str.length();
+		String isPali = "No";
+	
+		if(len == 1) {
+			isPali = "Yes";
+		} else {
+			for(int i = 0, j = len - 1; i < (len - 1) / 2; i++, j--) {
+				
+				if(str.charAt(i) == str.charAt(j)) {
+					isPali = "Yes";
+				}else {
+					isPali = "No";
+					break;
+				}	
+			}	
+		}
+		
+		System.out.println(isPali);
+		
 	}
 	
 	static void Problem17(String s, int k) {
@@ -104,11 +170,11 @@ public class main {
 
 	}
 	
-	static String Problem12(int year, int month, int day) {
+	static void Problem12(int year, int month, int day) {
 		Date date = new GregorianCalendar(year, month-1, day).getTime();
 		DateFormat df = new SimpleDateFormat("EEEE");
 		String dayOfWeek = df.format(date);
-		return dayOfWeek.toUpperCase();
+		System.out.println(dayOfWeek.toUpperCase());
 	}
 	
 	static void Problem11() {
