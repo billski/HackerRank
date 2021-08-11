@@ -6,6 +6,10 @@ import java.util.List;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -19,30 +23,105 @@ public class main {
 	
 	public static void main(String[] args) {
 	
-		try {
-			Problem25();
-		}catch(Exception e) {
-			
+		
+	}
+	
+	/**
+	 * Problem 30: Inheritance III
+	 */
+	abstract class Book{
+		String title;
+		abstract void setTitle(String s);
+		String getTitle(){
+			return title;
 		}
+		
+	}
+	class MyBook extends Book{
+	    
+	    void setTitle(String s){
+	        super.title= s;    
+	    }
+	    
+	}
+	
+	/**
+	 * Problem 29: Inheritance II
+	 */
+	class Arithmetic{
+	    
+	}
+	class Adder extends Arithmetic {
+	    public int add(int a, int b){
+	        return a+b;
+	    }
+	}
+	
+	/**
+	 * Problem 28: Inheritance I
+	 */
+	class Animal{
+		void walk() {
+			System.out.println("I am walking");
+		}
+	}
+	class Bird extends Animal{
+		void fly(){
+			System.out.println("I am flying");
+		}
+	    void sing(){
+	        System.out.println("I am singing");
+	    }
+	}
+	
+	static void Problem27() throws NoSuchAlgorithmException {
+        Scanner input = new Scanner(System.in);
+        MessageDigest m = MessageDigest.getInstance("SHA-256");
+        m.reset();
+        m.update(input.nextLine().getBytes());
+        for (byte i : m.digest()) {
+            System.out.print(String.format("%02x", i));
+        }
+        System.out.println();
+        input.close();
+    }
+	
+	static void Problem26() throws NoSuchAlgorithmException {
+		Scanner sc= new Scanner(System.in);
+        String input = sc.next();
+        // MessageDigest instance for MD5
+        
+        MessageDigest md = null;
+        try {
+         md = MessageDigest.getInstance("MD5");   
+        }catch(Exception e){
+            
+        }
+        
+        // Update MessageDigest with input text in bytes
+        md.update(input.getBytes(StandardCharsets.UTF_8));
+        
+        // Get the hashbytes
+        byte[] hashBytes = md.digest();
+        
+        //Convert hash bytes to hex format
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashBytes) {
+            sb.append(String.format("%02x", b));
+        }
+
+        // Print the hashed text
+        System.out.println(sb.toString());
+        
 	}
 	
 	static void Problem25() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 		String n = reader.readLine();
-		BigDecimal num = new BigDecimal(n);
-		String isPrime = "prime";
+		BigInteger num = new BigInteger(n);
 		
-		if(num.intValue() < 2) isPrime = "not prime";
-		if(num.intValue() == 2 || num.intValue() == 3) isPrime = "prime";
-		if(num.intValue() % 2 == 0 || num.intValue() % 3 == 0) isPrime = "not prime";
-		
-		for(long i = 6L; i < Math.sqrt(num.intValue() + 1); i += 6 ) {
-			
-			if(num.intValue() % (i - 1) == 0 || num.intValue() % (i + 1) == 0) {
-				isPrime = "not prime";   
-			}
-		}
+		System.out.println(num.isProbablePrime(50) ? "prime" : "not prime");
 	    
         reader.close();
 	}
@@ -156,8 +235,7 @@ public class main {
 			return;	
 		}
 		
-		String tempA = "";
-		tempA = a;
+		String tempA = a;
 		
 		for(int i = 0; i < a.length(); i++) {
 			String toCheck = String.valueOf(a.charAt(i)).toLowerCase();
@@ -293,7 +371,6 @@ public class main {
 		
 	}
 
-	
 	static void Problem10() {
 
 		/**
