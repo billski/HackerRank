@@ -1,26 +1,134 @@
 package Problems;
-
 import java.io.BufferedReader;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class main {
-
+	
+	
 	public static void main(String[] args) {
+	
+		try {
+			Problem25();
+		}catch(Exception e) {
+			
+		}
+	}
+	
+	static void Problem25() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+		String n = reader.readLine();
+		BigDecimal num = new BigDecimal(n);
+		String isPrime = "prime";
+		
+		if(num.intValue() < 2) isPrime = "not prime";
+		if(num.intValue() == 2 || num.intValue() == 3) isPrime = "prime";
+		if(num.intValue() % 2 == 0 || num.intValue() % 3 == 0) isPrime = "not prime";
+		
+		for(long i = 6L; i < Math.sqrt(num.intValue() + 1); i += 6 ) {
+			
+			if(num.intValue() % (i - 1) == 0 || num.intValue() % (i + 1) == 0) {
+				isPrime = "not prime";   
+			}
+		}
+	    
+        reader.close();
+	}
+	
+	static void Problem24() {
+		//Input
+		Scanner sc= new Scanner(System.in);
+		
+		int n=sc.nextInt();
+		String []s=new String[n+2];
+		for(int i=0;i<n;i++){
+		    s[i]=sc.next();
+		}
+		
+		sc.close();
+		
+		for(int i = 0;i < n; i++) {
+            BigDecimal max=new BigDecimal(s[i]);
+            int idx = i;
+            for(int j= i + 1;j < n; j++) {
+                BigDecimal curr=new BigDecimal(s[j]);
+                if(curr.compareTo(max) == 1) {
+                    max = curr;
+                    idx = j;
+                }
+            }
+            String temp = s[i];
+            s[i] = s[idx];
+            s[idx] = temp;
+        }
+
 		
 		
+		//Output
+        for(int i=0;i<n;i++) {
+            System.out.println(s[i]);
+        }
+		
+	}
+	
+	static void Problem23() {
+		Scanner in = new Scanner(System.in);
+		int testCases = Integer.parseInt(in.nextLine());
+		while(testCases>0){
+			String line = in.nextLine();
+			
+          	boolean found = false;
+            Pattern r = Pattern.compile("<(.+)>([^<]+)</\\1>");
+            Matcher m = r.matcher(line);
+
+            while (m.find()) {
+                System.out.println(m.group(2));
+                found = true;
+            }
+            if (!found) {
+                System.out.println("None");
+            }
+			
+			testCases--;
+		}
+		in.close();
+	}
+	
+	static void Problem22() {
+		String regularExpression = "^[a-zA-Z][a-zA-Z0-9_]{7,29}$";
+		Scanner scan = new Scanner(System.in);
+	    
+	    
+        int n = Integer.parseInt(scan.nextLine());
+        while (n-- != 0) {
+            String userName = scan.nextLine();
+
+            if (userName.matches(regularExpression)) {
+                System.out.println("Valid");
+            } else {
+                System.out.println("Invalid");
+            }           
+        }
+        scan.close();
+	    
+	}
+	
+	static void Problem21() {
+		String input = "Goodbye bye bye world world world\n";
+		String pattern = "\\b(\\w+)\\b\\s*(?=.*\\b\\1\\b)";
+		String result = input.replaceAll(pattern, "");
 	}
 	
 	static void Problem20(String str) {
@@ -185,37 +293,37 @@ public class main {
 		
 	}
 
-	/**
-	 * Problem 10: Static blocks
-	 */
-	/*
-	static int H, B;
-	static boolean flag;
-	static {
-	    Scanner scan = new Scanner(System.in);
-		
-	    H = scan.nextInt();
-		scan.nextLine();
-		
-		B = scan.nextInt();
-		scan.nextLine();
-	    
-		if(H <= 0 || B <= 0) {
-	    	flag = false;
-	    	System.out.println("java.lang.Exception: Breadth and height must be positive");
-	    }else {
-	    	flag = true;	
-	    }
-		scan.close();
-	    
+	
+	static void Problem10() {
+
+		/**
+		 * Problem 10: Static blocks
+		 */
+		/*
+		static int H, B;
+		static boolean flag;
+		static {
+		    Scanner scan = new Scanner(System.in);
+			
+		    H = scan.nextInt();
+			scan.nextLine();
+			
+			B = scan.nextInt();
+			scan.nextLine();
+		    
+			if(H <= 0 || B <= 0) {
+		    	flag = false;
+		    	System.out.println("java.lang.Exception: Breadth and height must be positive");
+		    }else {
+		    	flag = true;	
+		    }
+			scan.close();
+		    
+		}
+		*/
 	}
-	*/
 	
 	static void Problem9() {
-		
-	}
-	
-	static void Problem8() {
 		Scanner scan = new Scanner(System.in);
         int ctr = 1;
 		while (scan.hasNext()) {
@@ -226,7 +334,7 @@ public class main {
 		scan.close();
 	}
 	
-	static void Problem7() {
+	static void Problem8() {
 	
 		Scanner sc = new Scanner(System.in);
 		int t = sc.nextInt();
@@ -258,7 +366,7 @@ public class main {
 				
 	}
 		
-	static void Problem6() {
+	static void Problem7() {
 		Scanner in = new Scanner(System.in);
 		int t = in.nextInt();
 		for(int i = 0; i < t; i++){
@@ -275,7 +383,7 @@ public class main {
 		in.close();
 	}
 	
-	static void Problem5() throws NumberFormatException, IOException {
+	static void Problem6() throws NumberFormatException, IOException {
 		
 		// Given an integer, n, print its first 10 multiples. 
 		// Each multiple n x i (where 1 <= i <= 10) should be printed on a new line in the
@@ -295,7 +403,7 @@ public class main {
 		
 	}
 	
-	static void Problem4() {
+	static void Problem5() {
 		 Scanner sc = new Scanner(System.in);
          System.out.println("================================");
          for(int i = 0; i < 3; i++){
@@ -312,7 +420,7 @@ public class main {
          sc.close();
 	}
 	
-	static void Problem3() {
+	static void Problem4() {
 		Scanner scan = new Scanner(System.in);
 		int i = scan.nextInt();
 		Double d = scan.nextDouble();
@@ -325,7 +433,7 @@ public class main {
 		scan.close();
 	}
 	
-	static void Problem2() {
+	static void Problem3() {
 		
 		/*
 		 	Given an integer, n, perform the following conditional actions:
@@ -358,7 +466,7 @@ public class main {
 		scanner.close();
 	}
 		
-	static void Problem1() {
+	static void Problem2() {
 		Scanner scanner = new Scanner(System.in);
 		Integer ints[] = new Integer[3];  
 		
