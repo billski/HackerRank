@@ -17,13 +17,111 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 public class main {
 	
 	
 	public static void main(String[] args) {
-	
+	try {
+		Problem34();
+	}catch(Exception e) {
 		
+	}
+		
+	}
+	
+	static void Problem34() throws IOException {
+		/*   
+		 	 Hourglass
+		 	1 1 1 0 0 0
+			0 1 0 0 0 0
+			1 1 1 0 0 0
+			0 0 2 4 4 0
+			0 0 0 2 0 0
+			0 0 1 2 4 0
+			
+			1. Sum the hour glass
+			2. Display largest			
+		 */
+		
+		//BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+		int arr[][] = new int[6][6]; 
+		
+		Scanner scanner = new Scanner(System.in);
+		
+	
+		int max = 0;
+        int s1,s2,s3,sum = 0;
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++) {
+            	arr[i][j] = scanner.nextInt();
+                s1 = arr[i][j] + arr[i][j + 1] + arr[i][j + 2];
+                s2 = arr[i + 1][j + 1];
+                s3 = arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2];
+                sum = s1 + s2 + s3;
+                
+                if(max < sum)
+                    max = sum;
+            }
+        }
+        System.out.println(max);
+		
+		
+	}
+	
+	static void Problem33() {
+		 Scanner scan = new Scanner(System.in);
+	        int n = scan.nextInt();
+
+	        scan.close();
+
+	        int[] a = new int[n];
+	        
+	        for(int i =0; i < n; i++)
+	        	a[i] = scan.nextInt();
+	        
+	        
+	        
+	        // Prints each sequential element in array a
+	        for (int i = 0; i < a.length; i++) {
+	            System.out.println(a[i]);
+	        }
+	}
+	
+	static void Problem32() {
+		Scanner sc = new Scanner(System.in);
+        BigInteger num1 = new BigInteger(sc.next());
+        BigInteger num2 = new BigInteger(sc.next());
+        
+        System.out.println(num1.add(num2) + "\n" + num1.multiply(num2));
+	}
+	
+	/**
+	 * Problem 31: Interfaces 
+	 */
+	interface AdvancedArithmetic {
+		  int divisor_sum(int n);
+	}
+	class MyCalculator implements AdvancedArithmetic {
+	    public int divisor_sum(int n) {
+	            if (n <= 1) {
+	                return n; 
+	            }
+	    
+	            int res = n + 1;
+	            
+	            for (int i = 2; i < n; i++) {
+	                if (n % i == 0) {
+	                    res += i;
+	                }
+	            }
+	    
+	            return res;
+	        }
 	}
 	
 	/**
@@ -53,7 +151,7 @@ public class main {
 	}
 	class Adder extends Arithmetic {
 	    public int add(int a, int b){
-	        return a+b;
+	        return a + b;
 	    }
 	}
 	
