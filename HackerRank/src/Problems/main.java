@@ -1,8 +1,5 @@
 package Problems;
 import java.io.BufferedReader;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.List;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -27,10 +24,93 @@ public class main {
 	public static void main(String[] args) {
 		
 		try {
-			Problem35();
+			Problem36();
 		}catch(Exception e) {
-			
+			e.printStackTrace();
 		}
+		
+	}
+	
+	static void Problem36() {
+		/*
+		 	n:	5
+			List (n):
+			SubList Size 5: 41 77 74 22 44
+			SubList size 2: 1 12
+			SubList size 4: 37 34 36 52
+			SubList size 0:
+			SubList size 3: 20 22 33
+			
+			d: 5
+			List (n): 	4  
+			Sublist 1:	3 4
+			Sublist 2:	3 1
+			Sublist 3:	4 3
+			Sublist n:	5 5
+		 */
+		Scanner scanner = new Scanner(System.in);
+		
+		int n, d, q;
+		
+		// Number lists to be queried
+		List<ArrayList<Integer>> numbersList = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> numSubList = new ArrayList<Integer>();
+		
+		// Query Lists
+		ArrayList<ArrayList<Integer>> queriesList = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> queriesSubList = new ArrayList<Integer>();
+		
+		// Lines (sub lists)
+		n = scanner.nextInt();
+		
+		// Get the numbers to be queried
+		for(int row = 0; row < n; row++) {			
+			d = scanner.nextInt();
+			for(int j = 0; j < d; j++) {
+				numSubList.add(scanner.nextInt());
+			}
+			numbersList.add(numSubList);
+			numSubList = new ArrayList<Integer>();
+		}
+		
+		// Amount of queries to get
+		//System.out.println("Amount of queries: ");
+		q = scanner.nextInt();
+		
+		// Add the x, y to the queries lists
+		for(int i = 0; i < q; i++) {			
+			queriesSubList.add(scanner.nextInt());
+			queriesSubList.add(scanner.nextInt());
+			queriesList.add(queriesSubList);
+			queriesSubList = new ArrayList<Integer>();
+		}
+		
+		
+		// For each list in the master list
+		// Start at the second position, stop at n
+		for(ArrayList<Integer> i : queriesList) {
+
+			int queryX = i.get(0) - 1;
+			int queryY = i.get(1) - 1;
+			int mainNumSize = numbersList.size();
+			
+			
+			// Make sure x row exists 
+			if(queryX < mainNumSize) {
+				int numListSubListSize = numbersList.get(queryX).size();
+				// Make sure Y column exists
+				if(queryY < numListSubListSize) {
+					int result = numbersList.get(queryX).get(queryY);
+					
+					System.out.println(result); // is i.get(1) < numbersList.get(0).size()		
+				}else {
+					System.out.println("ERROR!");
+				}
+			}else {
+				System.out.println("ERROR!");
+			}	
+		}
+		
 		
 	}
 	
@@ -47,7 +127,8 @@ public class main {
 		int sum = 0;
 		int count = 0;
 		if(size > maxSize || size < minSize) {
-			throw new Exception("out of bounds");
+			// Out of range
+			return;
 		}
 		
 		int[] arr = new int[size];
@@ -55,11 +136,12 @@ public class main {
 			arr[i] = scanner.nextInt();
 			
 		for(int i = 0; i < size; i++) {
-            for (int j = i; j <= size ; j++) {
-            	sum = 0;
+			for (int j = i; j <= size ; j++) {
+				sum = 0;
             	for (int k = i; k < j; k++) {
                 	if(arr[k] > maxElementSize || arr[k] < minElementSize) {
-                		throw new Exception("Element size out of bounds.");
+                		// Out of range
+                		return;
                 	}
                 	sum += arr[k];
                 }
