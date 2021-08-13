@@ -25,12 +25,49 @@ public class main {
 	
 	
 	public static void main(String[] args) {
-	try {
-		Problem34();
-	}catch(Exception e) {
+		
+		try {
+			Problem35();
+		}catch(Exception e) {
+			
+		}
 		
 	}
+	
+	static void Problem35() throws Exception {
 		
+		Scanner scanner = new Scanner(System.in);
+		
+		int size = scanner.nextInt();
+		
+		int maxSize = 100;
+		int minSize = 1;
+		int maxElementSize = (int) Math.pow(10, 4);
+		int minElementSize = -((int) Math.pow(10, 4));
+		int sum = 0;
+		int count = 0;
+		if(size > maxSize || size < minSize) {
+			throw new Exception("out of bounds");
+		}
+		
+		int[] arr = new int[size];
+		for(int i = 0; i < size; i++) 
+			arr[i] = scanner.nextInt();
+			
+		for(int i = 0; i < size; i++) {
+            for (int j = i; j <= size ; j++) {
+            	sum = 0;
+            	for (int k = i; k < j; k++) {
+                	if(arr[k] > maxElementSize || arr[k] < minElementSize) {
+                		throw new Exception("Element size out of bounds.");
+                	}
+                	sum += arr[k];
+                }
+                if(sum < 0)
+                	count++;
+             }
+        }
+		System.out.println(count);
 	}
 	
 	static void Problem34() throws IOException {
@@ -46,50 +83,62 @@ public class main {
 			1. Sum the hour glass
 			2. Display largest			
 		 */
-		
-		//BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
+				
 		int arr[][] = new int[6][6]; 
-		
 		Scanner scanner = new Scanner(System.in);
 		
+		for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                arr[i][j] = scanner.nextInt();
+            }
+        }
 	
-		int max = 0;
-        int s1,s2,s3,sum = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++) {
-            	arr[i][j] = scanner.nextInt();
-                s1 = arr[i][j] + arr[i][j + 1] + arr[i][j + 2];
-                s2 = arr[i + 1][j + 1];
-                s3 = arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2];
-                sum = s1 + s2 + s3;
+		int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for(int i = 1; i < 5; i++){
+            for(int j = 1; j < 5; j++) {
+            	
+            	// Reset for the next hourglass
+            	sum = 0;
+            	
+            	// Top row
+                sum += arr[i - 1 ][j - 1];
+                sum += arr[i - 1][j];
+                sum += arr[i - 1][j + 1];
                 
-                if(max < sum)
-                    max = sum;
+                // Middle
+                sum += arr[i][j];
+                
+                // Bottom row
+                sum += arr[i + 1][j - 1];
+                sum += arr[i + 1][j];
+                sum += arr[i + 1][j + 1];
+              
+                if(max < sum) 
+                	max = sum;      
             }
         }
         System.out.println(max);
 		
-		
 	}
 	
 	static void Problem33() {
-		 Scanner scan = new Scanner(System.in);
-	        int n = scan.nextInt();
-
-	        scan.close();
-
-	        int[] a = new int[n];
-	        
-	        for(int i =0; i < n; i++)
-	        	a[i] = scan.nextInt();
-	        
-	        
-	        
-	        // Prints each sequential element in array a
-	        for (int i = 0; i < a.length; i++) {
-	            System.out.println(a[i]);
-	        }
+		Scanner scan = new Scanner(System.in);
+		int n = scan.nextInt();
+		
+		scan.close();
+		
+		int[] a = new int[n];
+		
+		for(int i =0; i < n; i++)
+			a[i] = scan.nextInt();
+		
+		
+		
+		// Prints each sequential element in array a
+		for (int i = 0; i < a.length; i++) {
+		    System.out.println(a[i]);
+		}
 	}
 	
 	static void Problem32() {
