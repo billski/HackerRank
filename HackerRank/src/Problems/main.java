@@ -23,12 +23,81 @@ public class main {
 	
 	public static void main(String[] args) {
 		
-		try {
-			Problem36();
-		}catch(Exception e) {
-			e.printStackTrace();
+		Scanner scan = new Scanner(System.in);
+        int q = scan.nextInt();
+        while (q-- > 0) {
+            int n = scan.nextInt();
+            int leap = scan.nextInt();
+            
+            int[] game = new int[n];
+            for (int i = 0; i < n; i++) {
+                game[i] = scan.nextInt();
+            }
+
+            System.out.println( (Problem37(leap, game)) ? "YES" : "NO" );
+        }
+        scan.close();
+	}
+	
+	public static class Problem37 {
+		private int[] game;
+		private int currentLocation; // starting location
+		private int leap;
+		private boolean win;
+		
+		public Problem37(int leap, int[] game) {
+			this.win = false;
+			this.leap = leap;
+			this.game = game;
 		}
 		
+		//Move Backward: If cell (i - 1) exists and contains a 0, you can walk back to cell (i - 1).
+		//Move Forward:
+		//	If cell (i + 1) contains a zero, you can walk to cell (i + 1).
+		//	If cell (i + leap) contains a zero, you can jump to cell (i + leap).
+		//	If you're standing in cell (n - 1) or the value of (i + leap > n), you can walk or jump off the end of the array and win the game.
+		public void MoveForward() {
+			if(game[currentLocation + 1] == 0) {
+				currentLocation++;
+				Move();
+			}
+		}
+		public void MoveBackward() {
+			if(currentLocation - 1 >= 0 && game[currentLocation] == 0) {
+				game[currentLocation] = 1;
+				currentLocation--;
+				Move();
+			}
+		}
+		private void Leap() {
+			if(currentLocation + leap < game.length) {
+				if(game[currentLocation + leap] == 0) {
+					int oldLocation = currentLocation;
+					currentLocation = currentLocation + leap;
+					Move();
+					currentLocation = oldLocation;
+				}
+			}
+		}
+		private void Move() {
+			if(currentLocation == (game.length - 1) || currentLocation + leap >= game.length){
+				win = true;
+			}else {
+				this.MoveForward();
+				if(currentLocation != 0) {
+					Leap();
+				}
+				this.MoveBackward();
+			}
+		}
+		private boolean GetOutcome() {
+			return win;
+		}
+	}
+	static boolean Problem37(int leap, int[] game) {
+		Problem37 p = new Problem37(leap, game);
+		p.Move();
+		return p.GetOutcome();
 	}
 	
 	static void Problem36() {
@@ -60,7 +129,7 @@ public class main {
 		ArrayList<ArrayList<Integer>> queriesList = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> queriesSubList = new ArrayList<Integer>();
 		
-		// Lines (sub lists)
+		// Input Lines (sub lists)
 		n = scanner.nextInt();
 		
 		// Get the numbers to be queried
@@ -74,10 +143,9 @@ public class main {
 		}
 		
 		// Amount of queries to get
-		//System.out.println("Amount of queries: ");
 		q = scanner.nextInt();
 		
-		// Add the x, y to the queries lists
+		// Add the row, col to the queries lists
 		for(int i = 0; i < q; i++) {			
 			queriesSubList.add(scanner.nextInt());
 			queriesSubList.add(scanner.nextInt());
@@ -86,23 +154,20 @@ public class main {
 		}
 		
 		
-		// For each list in the master list
-		// Start at the second position, stop at n
+		// Go through each query list and if exists, get the row/col 
 		for(ArrayList<Integer> i : queriesList) {
 
-			int queryX = i.get(0) - 1;
-			int queryY = i.get(1) - 1;
+			int row = i.get(0) - 1;
+			int col = i.get(1) - 1;
 			int mainNumSize = numbersList.size();
 			
 			
 			// Make sure x row exists 
-			if(queryX < mainNumSize) {
-				int numListSubListSize = numbersList.get(queryX).size();
+			if(row < mainNumSize) {
+				int numListSubListSize = numbersList.get(row).size();
 				// Make sure Y column exists
-				if(queryY < numListSubListSize) {
-					int result = numbersList.get(queryX).get(queryY);
-					
-					System.out.println(result); // is i.get(1) < numbersList.get(0).size()		
+				if(col < numListSubListSize) {
+					System.out.println(numbersList.get(row).get(col));
 				}else {
 					System.out.println("ERROR!");
 				}
@@ -110,7 +175,7 @@ public class main {
 				System.out.println("ERROR!");
 			}	
 		}
-		
+		scanner.close();
 		
 	}
 	
