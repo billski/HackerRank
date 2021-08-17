@@ -33,71 +33,83 @@ public class main {
             for (int i = 0; i < n; i++) {
                 game[i] = scan.nextInt();
             }
-
-            System.out.println( (Problem37(leap, game)) ? "YES" : "NO" );
+            
+            System.out.println( (Problem37(leap, game, 0)) ? "YES" : "NO" );
         }
         scan.close();
 	}
 	
-	public static class Problem37 {
-		private int[] game;
-		private int currentLocation; // starting location
-		private int leap;
-		private boolean win;
-		
-		public Problem37(int leap, int[] game) {
-			this.win = false;
-			this.leap = leap;
-			this.game = game;
+	static void Problem38() {
+
+		int size;
+
+		//System.out.println("Enter list size: ");
+		Scanner scanner = new Scanner(System.in);
+		size = scanner.nextInt();
+		if(size < 0 || size > 4000) {
+			System.out.println("Error");
+			scanner.close();
+			return;
 		}
-		
-		//Move Backward: If cell (i - 1) exists and contains a 0, you can walk back to cell (i - 1).
-		//Move Forward:
-		//	If cell (i + 1) contains a zero, you can walk to cell (i + 1).
-		//	If cell (i + leap) contains a zero, you can jump to cell (i + leap).
-		//	If you're standing in cell (n - 1) or the value of (i + leap > n), you can walk or jump off the end of the array and win the game.
-		public void MoveForward() {
-			if(game[currentLocation + 1] == 0) {
-				currentLocation++;
-				Move();
-			}
+		String action = "";
+
+		List<Integer> list = new ArrayList<Integer>();
+
+		//System.out.println("Enter " + size + " elements: ");
+		for(int i = 0; i < size; i++) {
+			list.add(scanner.nextInt());
 		}
-		public void MoveBackward() {
-			if(currentLocation - 1 >= 0 && game[currentLocation] == 0) {
-				game[currentLocation] = 1;
-				currentLocation--;
-				Move();
-			}
+		//System.out.println("Current list: " + list);
+		//System.out.println("Number of queries: ");
+
+		int queries = scanner.nextInt();
+		if(queries < 0 || queries > 4000) {
+			System.out.println("Error");
+			scanner.close();
+			return;
 		}
-		private void Leap() {
-			if(currentLocation + leap < game.length) {
-				if(game[currentLocation + leap] == 0) {
-					int oldLocation = currentLocation;
-					currentLocation = currentLocation + leap;
-					Move();
-					currentLocation = oldLocation;
+		for (int i = 0; i < queries; i++) {
+			//System.out.println("Insert or Delete: ");
+			action = scanner.next();
+			if(action.equalsIgnoreCase("insert")) {
+				//System.out.println("Enter index to insert: ");
+				int idx = scanner.nextInt();
+				if(idx < 0) {
+					//System.out.println("error");
+					break;
 				}
+				//System.out.println("Enter value to insert: ");
+				int val = scanner.nextInt();
+				list.add(idx, val);
+			}else if (action.equalsIgnoreCase("delete")) {
+				System.out.println("Enter index to delete: ");
+				int idx = scanner.nextInt();
+				if(list.get(idx) != null)
+					list.remove(idx);
 			}
 		}
-		private void Move() {
-			if(currentLocation == (game.length - 1) || currentLocation + leap >= game.length){
-				win = true;
-			}else {
-				this.MoveForward();
-				if(currentLocation != 0) {
-					Leap();
-				}
-				this.MoveBackward();
-			}
-		}
-		private boolean GetOutcome() {
-			return win;
-		}
+		String result = "";
+		for(Integer i : list)
+			result += i + " ";
+
+		System.out.println(result.trim());
+		scanner.close();
 	}
-	static boolean Problem37(int leap, int[] game) {
-		Problem37 p = new Problem37(leap, game);
-		p.Move();
-		return p.GetOutcome();
+	
+	
+	static boolean Problem37(int leap, int[] game, int position) {
+		
+		if(leap > 100 || game.length > 100 || position < 0 || game[position] == 1 || game.length < 2) {
+			return false;
+		}
+		
+		if(position + leap > game.length - 1 || position == game.length - 1) {
+			return true;
+		}
+	
+		game[position] = 1;
+		return Problem37(leap, game, position - 1) || Problem37(leap, game, position + 1) || Problem37(leap, game, position + leap);
+		
 	}
 	
 	static void Problem36() {
