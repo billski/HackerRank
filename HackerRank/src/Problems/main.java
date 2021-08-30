@@ -2,6 +2,7 @@ package Problems;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -23,66 +24,141 @@ public class main {
 	
 	public static void main(String[] args) {
 		
-		Scanner scan = new Scanner(System.in);
-        int q = scan.nextInt();
-        while (q-- > 0) {
-            int n = scan.nextInt();
-            int leap = scan.nextInt();
-            
-            int[] game = new int[n];
-            for (int i = 0; i < n; i++) {
-                game[i] = scan.nextInt();
-            }
-            
-            System.out.println( (Problem37(leap, game, 0)) ? "YES" : "NO" );
+	}
+
+	
+	
+	
+	
+	class Printer<A>{
+		
+		public <A> void printArray(A[] in) {
+			for(A e : in) {
+				System.out.println(e);
+			}
+		}
+	}
+	void Problem42() {
+		Printer myPrinter = new Printer();
+        Integer[] intArray = { 1, 2, 3 };
+        String[] stringArray = {"Hello", "World"};
+        myPrinter.printArray(intArray);
+        myPrinter.printArray(stringArray);
+        int count = 0;
+
+        for (Method method : Printer.class.getDeclaredMethods()) {
+            String name = method.getName();
+
+            if(name.equals("printArray"))
+                count++;
         }
-        scan.close();
+
+        if(count > 1)System.out.println("Method overloading is not allowed!");
 	}
 	
+	static void Problem41() {
+		Scanner s = new Scanner(System.in);
+        int t = s.nextInt();
+        String [] pair_left = new String[t];
+        String [] pair_right = new String[t];
+        HashSet<String> pairs = new HashSet<String>(t);
+        for (int i = 0; i < t; i++) {
+            
+            pairs.add(pair_left[i] + pair_right[i]);
+            System.out.println(pairs.size()); 
+        }
+	}
+	
+	static boolean Problem40(String input) {
+		
+        Stack<Character> stack = new Stack<Character>();
+
+        for(char chr : input.toCharArray()){
+            switch(chr) {
+                case '{':
+                case '(':
+                case '[':
+                	stack.push(chr);
+                    break;
+
+                case ']':
+                    if(stack.isEmpty() || stack.pop() != '[') 
+                        return false;
+                    break;
+                case ')':
+                    if(stack.isEmpty() || stack.pop() != '(')
+                        return false;
+                    break;
+                case '}':
+                    if(stack.isEmpty() || stack.pop() != '{')
+                        return false;
+                    break;
+            }
+        }
+        return stack.isEmpty();
+	}
+	static void Problem39() {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		Scanner in = new Scanner(System.in);
+		int entries = in.nextInt();
+		in.nextLine();
+		for(int i = 0; i < entries; i++){
+			String name = in.nextLine();
+			int phone = in.nextInt();
+			in.nextLine();
+			map.put(name, phone);
+		}
+		
+		while(in.hasNext()){
+			String s = in.nextLine();
+			Integer output = map.get(s);
+			if(output == null) 
+				System.out.println("Not found");	
+			else
+				System.out.println(s + "=" + output);
+		}
+	
+	}
 	static void Problem38() {
 
 		int size;
-
-		//System.out.println("Enter list size: ");
+		
 		Scanner scanner = new Scanner(System.in);
 		size = scanner.nextInt();
+		
 		if(size < 0 || size > 4000) {
 			System.out.println("Error");
 			scanner.close();
 			return;
 		}
+		
 		String action = "";
 
 		List<Integer> list = new ArrayList<Integer>();
 
-		//System.out.println("Enter " + size + " elements: ");
 		for(int i = 0; i < size; i++) {
 			list.add(scanner.nextInt());
 		}
-		//System.out.println("Current list: " + list);
-		//System.out.println("Number of queries: ");
 
 		int queries = scanner.nextInt();
+		
 		if(queries < 0 || queries > 4000) {
 			System.out.println("Error");
 			scanner.close();
 			return;
 		}
+		
 		for (int i = 0; i < queries; i++) {
-			//System.out.println("Insert or Delete: ");
 			action = scanner.next();
 			if(action.equalsIgnoreCase("insert")) {
-				//System.out.println("Enter index to insert: ");
 				int idx = scanner.nextInt();
 				if(idx < 0) {
-					//System.out.println("error");
 					break;
 				}
-				//System.out.println("Enter value to insert: ");
 				int val = scanner.nextInt();
 				list.add(idx, val);
 			}else if (action.equalsIgnoreCase("delete")) {
-				System.out.println("Enter index to delete: ");
 				int idx = scanner.nextInt();
 				if(list.get(idx) != null)
 					list.remove(idx);
@@ -95,8 +171,6 @@ public class main {
 		System.out.println(result.trim());
 		scanner.close();
 	}
-	
-	
 	static boolean Problem37(int leap, int[] game, int position) {
 		
 		if(leap > 100 || game.length > 100 || position < 0 || game[position] == 1 || game.length < 2) {
@@ -111,7 +185,6 @@ public class main {
 		return Problem37(leap, game, position - 1) || Problem37(leap, game, position + 1) || Problem37(leap, game, position + leap);
 		
 	}
-	
 	static void Problem36() {
 		/*
 		 	n:	5
